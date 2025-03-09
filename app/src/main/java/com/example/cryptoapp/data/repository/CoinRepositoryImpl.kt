@@ -17,13 +17,13 @@ class CoinRepositoryImpl(private val application: Application): CoinRepository {
     override fun getCoinInfoList(): LiveData<List<CoinInfo>> {
         val coinInfoList = coinInfoDao.getPriceList()
         return coinInfoList.map { it.map {
-            mapper.mapDbModelToDto(it)
+            mapper.mapDbModelToEntity(it)
         }
         }
     }
 
     override fun getCoinInfo(fromSymbol: String): LiveData<CoinInfo> {
-        return coinInfoDao.getPriceInfoAboutCoin(fromSymbol).map { mapper.mapDbModelToDto(it) }
+        return coinInfoDao.getPriceInfoAboutCoin(fromSymbol).map { mapper.mapDbModelToEntity(it) }
     }
 
     override suspend fun loadData() {
